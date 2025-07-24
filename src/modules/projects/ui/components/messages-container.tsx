@@ -21,6 +21,7 @@ export const MessagesContainer = ({
 }: Props) => {
 
     const bottomRef = useRef<HTMLDivElement>(null);
+    const lastAssistantMessageIdRef = useRef<string | null>(null);
 
     const trpc = useTRPC();
 
@@ -29,15 +30,17 @@ export const MessagesContainer = ({
     }, {
         refetchInterval: 5000
     }));
-    // useEffect(() => {
-    //     const lastAssistantMessageWithFragement = messages.findLast(
-    //         (message) => message.role === "ASSISTANT" && !!message.fragment,
-    //     )
+    useEffect(() => {
+        const lassAssistantMessage = messages.findLast((message) => message.role === 'ASSISTANT');
+        if (
+            lassAssistantMessage &&
+            lastAssistantMessageIdRef.current !== lassAssistantMessage.id
+        ) {
+            setActiveFragment(lassAssistantMessage.fragment);
+            lastAssistantMessageIdRef.current = lassAssistantMessage.id;
+        }
 
-    //     if (lastAssistantMessageWithFragement) {
-    //         setActiveFragment(lastAssistantMessageWithFragement.fragment);
-    //     }
-    // }, [messages, setActiveFragment]);
+    }, [messages, setActiveFragment]);
 
     useEffect(() => {
         bottomRef.current?.scrollIntoView();
