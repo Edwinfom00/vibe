@@ -21,6 +21,7 @@ import { ProjectHeader } from "../components/project-header";
 import { MessagesContainer } from "../components/messages-container";
 import { FragmentWeb } from "../components/fragmen-web";
 import { FileExplorer } from "@/components/file-explorer";
+import { UserControl } from "@/components/user-control";
 
 
 interface Props {
@@ -73,11 +74,12 @@ export const ProjectView = ({ projectId }: Props) => {
                                 </TabsTrigger>
                             </TabsList>
                             <div className="ml-auto flex items-center gap-x-2">
-                                <Button asChild size="sm" variant="default">
+                                <Button asChild size="sm" variant="tertiary">
                                     <Link href="/pricing">
                                         <CrownIcon />Upgade
                                     </Link>
                                 </Button>
+                                <UserControl />
                             </div>
                         </div>
 
