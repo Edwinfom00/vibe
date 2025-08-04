@@ -8,6 +8,7 @@ import { prisma } from '@/lib/db';
 
 import { inngest } from "./client";
 import { getSandbox, lastAssistantTextMessageContent } from './utils';
+import { SANDBOX_TIMEOUT } from './types';
 
 
 interface AgentState {
@@ -24,6 +25,7 @@ export const codeAgentFunction = inngest.createFunction(
 
         const sandboxId = await step.run("get-sandbox-id", async () => {
             const sandbox = await Sandbox.create("vibe-nextjs-edwinfom10");
+            await sandbox.setTimeout(SANDBOX_TIMEOUT); // 3 hours
             return sandbox.sandboxId;
         })
 
@@ -37,6 +39,7 @@ export const codeAgentFunction = inngest.createFunction(
                 orderBy: {
                     createdAt: "desc",
                 },
+                take: 5,
             });
 
             for (const message of messages) {
@@ -46,7 +49,7 @@ export const codeAgentFunction = inngest.createFunction(
                     content: message.content
                 })
             }
-            return formattedMessage;
+            return formattedMessage.reverse(); // Reverse to maintain chronological order
         })
 
         const state = createState<AgentState>({
