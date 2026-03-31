@@ -76,7 +76,7 @@ The system is built around a modern fullstack approach:
 ## Getting Started
 
 ```bash
-git clone https://github.com/your-username/vibe.git
+git clone https://github.com/Edwinfom00/vibe.git
 cd vibe
 
 npm install
