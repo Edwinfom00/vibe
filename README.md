@@ -1,7 +1,4 @@
-
-<p align="center">
-  <img src="/vibe.png" alt="Vibe Preview" width="100%" />
-</p>
+![Vibe Cover](./public/vibe.png)
 
 # Vibe
 
